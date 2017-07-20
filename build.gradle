@@ -54,6 +54,6 @@ ext {
     gsonConverter = "com.squareup.retrofit2:converter-gson:$gsonConverterVersion"
     okhttp = "com.squareup.okhttp3:okhttp:$okhttpVersion"
     picasso = "com.squareup.picasso:picasso:$picassoVersion"
-    kotlin = "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    kotlinStdlib = "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     databindingAndroidProcessor = "com.android.databinding:compiler:$android_plugin_version"
 }

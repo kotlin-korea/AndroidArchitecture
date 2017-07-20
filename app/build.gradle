@@ -67,7 +67,7 @@ dependencies {
     implementation rootProject.ext.picasso
 
     // Kotlin
-    implementation rootProject.ext.kotlin
+    implementation rootProject.ext.kotlinStdlib
 
     // DataBinding
     kapt rootProject.ext.databindingAndroidProcessor
