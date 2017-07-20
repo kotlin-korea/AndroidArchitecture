@@ -1,8 +1,10 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    buildToolsVersion "25.0.3"
     defaultConfig {
         applicationId "iammert.com.androidarchitecture"
         minSdkVersion 21
@@ -30,35 +32,37 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     testCompile 'junit:junit:4.12'
 
     //support lib
-    compile rootProject.ext.supportLibAppCompat
-    compile rootProject.ext.supportLibDesign
+    implementation rootProject.ext.supportLibAppCompat
+    implementation rootProject.ext.supportLibDesign
 
-    compile rootProject.ext.archRuntime
-    compile rootProject.ext.archExtension
+    implementation rootProject.ext.archRuntime
+    implementation rootProject.ext.archExtension
     annotationProcessor rootProject.ext.archCompiler
 
-    compile rootProject.ext.roomRuntime
+    implementation rootProject.ext.roomRuntime
     annotationProcessor rootProject.ext.roomCompiler
 
-    compile rootProject.ext.okhttp
-    compile rootProject.ext.retrofit
-    compile rootProject.ext.gsonConverter
+    implementation rootProject.ext.okhttp
+    implementation rootProject.ext.retrofit
+    implementation rootProject.ext.gsonConverter
 
     //dagger
     annotationProcessor rootProject.ext.daggerCompiler
-    compile rootProject.ext.dagger
-    compile rootProject.ext.daggerAndroid
-    compile rootProject.ext.daggerAndroidSupport
+    implementation rootProject.ext.dagger
+    implementation rootProject.ext.daggerAndroid
+    implementation rootProject.ext.daggerAndroidSupport
     annotationProcessor rootProject.ext.daggerAndroidProcessor
 
     //ui
-    compile rootProject.ext.picasso
+    implementation rootProject.ext.picasso
 
+    // Kotlin
+    implementation rootProject.ext.kotlin
 }
