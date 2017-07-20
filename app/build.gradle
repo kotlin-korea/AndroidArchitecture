@@ -28,7 +28,10 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+}
 
+kapt {
+    generateStubs = true
 }
 
 dependencies {
@@ -44,25 +47,28 @@ dependencies {
 
     implementation rootProject.ext.archRuntime
     implementation rootProject.ext.archExtension
-    annotationProcessor rootProject.ext.archCompiler
+    kapt rootProject.ext.archCompiler
 
     implementation rootProject.ext.roomRuntime
-    annotationProcessor rootProject.ext.roomCompiler
+    kapt rootProject.ext.roomCompiler
 
     implementation rootProject.ext.okhttp
     implementation rootProject.ext.retrofit
     implementation rootProject.ext.gsonConverter
 
     //dagger
-    annotationProcessor rootProject.ext.daggerCompiler
+    kapt rootProject.ext.daggerCompiler
     implementation rootProject.ext.dagger
     implementation rootProject.ext.daggerAndroid
     implementation rootProject.ext.daggerAndroidSupport
-    annotationProcessor rootProject.ext.daggerAndroidProcessor
+    kapt rootProject.ext.daggerAndroidProcessor
 
     //ui
     implementation rootProject.ext.picasso
 
     // Kotlin
     implementation rootProject.ext.kotlin
+
+    // DataBinding
+    kapt rootProject.ext.databindingAndroidProcessor
 }
