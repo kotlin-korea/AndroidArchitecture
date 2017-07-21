@@ -1,4 +1,11 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
+
+repositories {
+    mavenCentral()
+}
 
 android {
     compileSdkVersion 25
@@ -17,6 +24,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    kapt {
+        generateStubs = true
+    }
 
     dataBinding {
         enabled = true
@@ -26,6 +36,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
 
 }
 
@@ -60,5 +71,10 @@ dependencies {
 
     //ui
     compile rootProject.ext.picasso
+    compile rootProject.ext.kotlin
 
+    kapt rootProject.ext.databindingCompiler
+    kapt rootProject.ext.roomCompiler
+    kapt rootProject.ext.daggerCompiler
+    kapt rootProject.ext.daggerAndroidProcessor
 }
