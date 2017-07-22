@@ -19,11 +19,11 @@ public final class ListBindingAdapter{
         if(adapter == null)
             return;
 
-        if(resource == null || resource.data == null)
+        if(resource == null || resource.getData() == null)
             return;
 
         if(adapter instanceof BaseAdapter){
-            ((BaseAdapter)adapter).setData((List) resource.data);
+            ((BaseAdapter)adapter).setData((List) resource.getData());
         }
     }
 }
