@@ -80,7 +80,7 @@ public abstract class NetworkBoundResource<ResultType, RequestType> {
     }
 
     @WorkerThread
-    protected abstract void saveCallResult(@NonNull RequestType item);
+    protected abstract void saveCallResult(@Nullable RequestType item);
 
     @MainThread
     protected boolean shouldFetch(@Nullable ResultType data) {

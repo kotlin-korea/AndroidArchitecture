@@ -21,8 +21,8 @@ class MovieRepository
     fun loadPopularMovies(): LiveData<Resource<List<MovieEntity>>> {
         return object : NetworkBoundResource<List<MovieEntity>, MoviesResponse>() {
 
-            override fun saveCallResult(item: MoviesResponse) {
-                movieDao.saveMovies(item.results ?: emptyList())
+            override fun saveCallResult(item: MoviesResponse?) {
+                movieDao.saveMovies(item?.results ?: emptyList())
             }
 
             override fun loadFromDb(): LiveData<List<MovieEntity>> =
