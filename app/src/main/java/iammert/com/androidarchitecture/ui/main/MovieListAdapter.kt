@@ -34,7 +34,9 @@ class MovieListAdapter(private val movieListCallback: MovieListCallback) : BaseA
     class MovieViewHolder(var binding: ItemMovieListBinding, callback: MovieListCallback) : RecyclerView.ViewHolder(binding.root) {
 
         init {
-            binding.root.setOnClickListener { callback.onMovieClicked(binding.movie, binding.imageViewCover) }
+            binding.root.setOnClickListener {
+                callback.onMovieClicked(binding.movie ?: throw IllegalStateException(), binding.imageViewCover)
+            }
         }
 
         fun onBind(movieEntity: MovieEntity) {
