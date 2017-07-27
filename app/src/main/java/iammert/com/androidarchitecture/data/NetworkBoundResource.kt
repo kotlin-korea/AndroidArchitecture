@@ -29,19 +29,15 @@ import retrofit2.Response
 abstract class NetworkBoundResource<ResultType, RequestType> @MainThread internal constructor() {
     private val result = MediatorLiveData<Resource<ResultType>>().apply {
         value = Resource.loading<ResultType>()
-    }
-
-    init {
-        // TODO: Calling non-final function loadFromDb in constructor
         val dbSource = loadFromDb()
-        result.addSource(dbSource) { data ->
-            result.removeSource(dbSource)
+        addSource(dbSource) { data ->
+            removeSource(dbSource)
             if (shouldFetch(data)) {
                 fetchFromNetwork(dbSource)
             } else {
-                result.addSource(dbSource) { newData ->
+                addSource(dbSource) { newData ->
                     newData?.let {
-                        result.value = Resource.success(it)
+                        value = Resource.success(it)
                     }
                 }
             }
