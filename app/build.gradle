@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 25
@@ -27,6 +29,10 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    kapt {
+        generateStubs = true
+    }
+
 }
 
 dependencies {
@@ -35,6 +41,10 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     testCompile 'junit:junit:4.12'
+
+    compile rootProject.ext.kotlinStdlib
+
+    kapt rootProject.ext.databindingCompiler
 
     //support lib
     compile rootProject.ext.supportLibAppCompat
@@ -46,6 +56,7 @@ dependencies {
 
     compile rootProject.ext.roomRuntime
     annotationProcessor rootProject.ext.roomCompiler
+    kapt rootProject.ext.roomCompiler
 
     compile rootProject.ext.okhttp
     compile rootProject.ext.retrofit
@@ -53,12 +64,16 @@ dependencies {
 
     //dagger
     annotationProcessor rootProject.ext.daggerCompiler
+    kapt rootProject.ext.daggerCompiler
     compile rootProject.ext.dagger
     compile rootProject.ext.daggerAndroid
     compile rootProject.ext.daggerAndroidSupport
     annotationProcessor rootProject.ext.daggerAndroidProcessor
+    kapt rootProject.ext.daggerAndroidProcessor
 
     //ui
     compile rootProject.ext.picasso
-
+}
+repositories {
+    mavenCentral()
 }
