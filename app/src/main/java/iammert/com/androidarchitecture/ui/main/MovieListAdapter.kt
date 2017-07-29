@@ -20,15 +20,14 @@ class MovieListAdapter(private val movieListCallback: MovieListCallback) : BaseA
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): MovieViewHolder {
-        return MovieViewHolder.create(LayoutInflater.from(viewGroup.context), viewGroup, movieListCallback)
-    }
+    override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): MovieViewHolder =
+            MovieViewHolder.create(LayoutInflater.from(viewGroup.context), viewGroup, movieListCallback)
 
     override fun onBindViewHolder(viewHolder: MovieViewHolder, i: Int) {
         viewHolder.onBind(movieEntities[i])
     }
 
-    override fun getItemCount() : Int =
+    override fun getItemCount(): Int =
             movieEntities.size
 
     class MovieViewHolder(var binding: ItemMovieListBinding, callback: MovieListCallback) : RecyclerView.ViewHolder(binding.root) {

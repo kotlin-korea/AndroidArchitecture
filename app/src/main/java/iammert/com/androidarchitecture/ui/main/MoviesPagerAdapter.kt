@@ -11,13 +11,13 @@ import android.support.v4.app.FragmentStatePagerAdapter
 class MoviesPagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
 
     override fun getItem(i: Int): Fragment =
-        MovieListFragment.newInstance()
+            MovieListFragment.newInstance()
 
     override fun getCount(): Int =
-        3
+            titles.size
 
-    override fun getPageTitle(position: Int): CharSequence  =
-        titles[position]
+    override fun getPageTitle(position: Int): CharSequence =
+            titles[position]
 
     companion object {
         private val titles = arrayOf("Popular", "Science", "Comedy")
