@@ -6,18 +6,15 @@ import android.support.v7.widget.RecyclerView
 import iammert.com.androidarchitecture.data.Resource
 import iammert.com.androidarchitecture.ui.BaseAdapter
 
-/**
- * Created by mertsimsek on 20/05/2017.
- */
-
 object ListBindingAdapter {
-    @JvmStatic
+
     @Suppress("UNCHECKED_CAST")
+    @JvmStatic
     @BindingAdapter(value = "resource")
     fun setResource(recyclerView: RecyclerView, resource: Resource<*>?) {
         val adapter = recyclerView.adapter ?: return
         resource?.data ?: return
 
-        (adapter as? BaseAdapter<*, Any>)?.setData((resource.data as List<Any>?)!!)
+        (adapter as? BaseAdapter<*, Any>)?.setData(resource.data as? List<Any> ?: emptyList())
     }
 }

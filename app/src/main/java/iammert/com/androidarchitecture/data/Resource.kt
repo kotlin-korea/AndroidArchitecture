@@ -25,18 +25,13 @@ import iammert.com.androidarchitecture.data.Status.SUCCESS
  * A generic class that holds a value with its loading status.
  * @param <T>
 </T> */
-class Resource<out T> private constructor(val status: Status,
-                                          val data: T? = null,
-                                          val message: String? = null) {
+class Resource<out T> private constructor(val status: Status, val data: T?, val message: String?) {
     companion object {
 
-        fun <T> success(data: T): Resource<T> =
-            Resource(SUCCESS, data)
+        fun <T> success(data: T): Resource<T> = Resource(SUCCESS, data, null)
 
-        fun <T> error(msg: String, data: T?): Resource<T> =
-            Resource(ERROR, data, msg)
+        fun <T> error(msg: String, data: T?): Resource<T> = Resource(ERROR, data, msg)
 
-        fun <T> loading(data: T? = null): Resource<T> =
-            Resource(LOADING, data)
+        fun <T> loading(data: T?): Resource<T> = Resource(LOADING, data, null)
     }
 }

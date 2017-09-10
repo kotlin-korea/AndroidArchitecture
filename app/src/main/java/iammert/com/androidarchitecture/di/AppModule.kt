@@ -23,34 +23,31 @@ class AppModule {
 
     @Provides
     @Singleton
-    internal fun provideOkHttpClient(): OkHttpClient = OkHttpClient.Builder()
-            .connectTimeout(ApiConstants.TIMEOUT_IN_SEC.toLong(), TimeUnit.SECONDS)
-            .readTimeout(ApiConstants.TIMEOUT_IN_SEC.toLong(), TimeUnit.SECONDS)
-            .addInterceptor(RequestInterceptor())
-            .build()
+    fun provideOkHttpClient(): OkHttpClient =
+            OkHttpClient.Builder()
+                    .apply {
+                        connectTimeout(ApiConstants.TIMEOUT_IN_SEC.toLong(), TimeUnit.SECONDS)
+                        readTimeout(ApiConstants.TIMEOUT_IN_SEC.toLong(), TimeUnit.SECONDS)
+                        addInterceptor(RequestInterceptor())
+                    }.build()
 
     @Provides
     @Singleton
-    internal fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit = Retrofit.Builder()
-            .baseUrl(ApiConstants.ENDPOINT)
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(okHttpClient)
-            .build()
-
-    @Provides
-    @Singleton
-    internal fun provideService(retrofit: Retrofit): MovieDBService =
-            retrofit.create(MovieDBService::class.java)
-
-    @Provides
-    @Singleton
-    internal fun provideMovieDatabase(application: Application): MovieDatabase =
-            Room.databaseBuilder(application, MovieDatabase::class.java, "aa.db")
+    fun provideRetrofit(okHttpClient: OkHttpClient): MovieDBService =
+            Retrofit.Builder()
+                    .baseUrl(ApiConstants.ENDPOINT)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .client(okHttpClient)
                     .build()
+                    .create(MovieDBService::class.java)
 
     @Provides
     @Singleton
-    internal fun provideMovieDao(movieDatabase: MovieDatabase): MovieDao =
-            movieDatabase.movieDao()
+    fun provideMovieDatabase(application: Application): MovieDatabase =
+            Room.databaseBuilder(application, MovieDatabase::class.java, "aa.db").build()
+
+    @Provides
+    @Singleton
+    fun provideMovieDao(movieDatabase: MovieDatabase): MovieDao = movieDatabase.movieDao()
 
 }

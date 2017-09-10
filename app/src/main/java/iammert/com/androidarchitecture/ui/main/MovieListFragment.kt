@@ -15,10 +15,6 @@ import iammert.com.androidarchitecture.databinding.FragmentMovieListBinding
 import iammert.com.androidarchitecture.ui.detail.MovieDetailActivity
 import javax.inject.Inject
 
-/**
- * Created by mertsimsek on 19/05/2017.
- */
-
 class MovieListFragment : LifecycleFragment(), MovieListCallback {
 
     @Inject
@@ -53,8 +49,6 @@ class MovieListFragment : LifecycleFragment(), MovieListCallback {
 
     companion object {
 
-        fun newInstance(): MovieListFragment = MovieListFragment().apply {
-            arguments = Bundle()
-        }
+        fun newInstance(): MovieListFragment = MovieListFragment().apply { arguments = Bundle() }
     }
 }

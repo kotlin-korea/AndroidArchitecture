@@ -30,7 +30,5 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
         }
     }
 
-    override fun supportFragmentInjector(): AndroidInjector<Fragment> =
-            fragmentAndroidInjector
-
+    override fun supportFragmentInjector(): AndroidInjector<Fragment> = fragmentAndroidInjector
 }

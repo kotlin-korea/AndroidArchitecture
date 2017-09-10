@@ -20,13 +20,13 @@ abstract class ViewModelModule {
     @Binds
     @IntoMap
     @ViewModelKey(MovieListViewModel::class)
-    internal abstract fun bindsMovieListViewModel(movieListViewModel: MovieListViewModel): ViewModel
+    abstract fun bindsMovieListViewModel(movieListViewModel: MovieListViewModel): ViewModel
 
     @Binds
     @IntoMap
     @ViewModelKey(MovieDetailViewModel::class)
-    internal abstract fun bindsMovieDetailViewModel(movieDetailViewModel: MovieDetailViewModel): ViewModel
+    abstract fun bindsMovieDetailViewModel(movieDetailViewModel: MovieDetailViewModel): ViewModel
 
     @Binds
-    internal abstract fun bindsViewModelFactory(movieViewModelFactory: MovieViewModelFactory): ViewModelProvider.Factory
+    abstract fun bindsViewModelFactory(movieViewModelFactory: MovieViewModelFactory): ViewModelProvider.Factory
 }

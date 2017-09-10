@@ -11,5 +11,5 @@ import iammert.com.androidarchitecture.ui.main.MovieListFragment
 abstract class FragmentBuilderModule {
 
     @ContributesAndroidInjector
-    internal abstract fun contributeMovieListFragment(): MovieListFragment
+    abstract fun contributeMovieListFragment(): MovieListFragment
 }

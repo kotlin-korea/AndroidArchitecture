@@ -27,14 +27,15 @@ class MovieListAdapter(private val movieListCallback: MovieListCallback) : BaseA
         viewHolder.onBind(movieEntities[i])
     }
 
-    override fun getItemCount(): Int =
-            movieEntities.size
+    override fun getItemCount(): Int = movieEntities.size
 
     class MovieViewHolder(var binding: ItemMovieListBinding, callback: MovieListCallback) : RecyclerView.ViewHolder(binding.root) {
 
         init {
-            binding.root.setOnClickListener {
-                callback.onMovieClicked(binding.movie ?: throw IllegalStateException(), binding.imageViewCover)
+            binding.root.setOnClickListener { _ ->
+                callback.onMovieClicked(
+                        binding.movie ?: throw IllegalStateException(),
+                        binding.imageViewCover)
             }
         }
 
