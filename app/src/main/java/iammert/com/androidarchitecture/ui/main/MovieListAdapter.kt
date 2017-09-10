@@ -11,7 +11,8 @@ import iammert.com.androidarchitecture.ui.BaseAdapter
  * Created by mertsimsek on 20/05/2017.
  */
 
-class MovieListAdapter(private val movieListCallback: MovieListCallback) : BaseAdapter<MovieListAdapter.MovieViewHolder, MovieEntity>() {
+class MovieListAdapter(private val movieListCallback: MovieListCallback)
+    : BaseAdapter<MovieListAdapter.MovieViewHolder, MovieEntity>() {
 
     private var movieEntities: List<MovieEntity> = emptyList()
 
@@ -29,7 +30,8 @@ class MovieListAdapter(private val movieListCallback: MovieListCallback) : BaseA
 
     override fun getItemCount(): Int = movieEntities.size
 
-    class MovieViewHolder(var binding: ItemMovieListBinding, callback: MovieListCallback) : RecyclerView.ViewHolder(binding.root) {
+    class MovieViewHolder(var binding: ItemMovieListBinding, callback: MovieListCallback)
+        : RecyclerView.ViewHolder(binding.root) {
 
         init {
             binding.root.setOnClickListener { _ ->

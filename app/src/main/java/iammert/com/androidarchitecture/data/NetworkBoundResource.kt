@@ -12,7 +12,32 @@ import retrofit2.Response
 
 abstract class NetworkBoundResource<ResultType, RequestType> {
 
-    private val result = MediatorLiveData<Resource<ResultType>>()
+    private val result = MediatorLiveData<Resource<ResultType>>().apply {
+        value = Resource.loading(null)
+    }
+
+    @get:Synchronized
+    val asLiveData: LiveData<Resource<ResultType>> by lazy {
+        val dbSource = loadFromDb()
+
+        result.addSource(dbSource, {
+            result.removeSource(dbSource)
+
+            if (shouldFetch(it)) {
+                fetchFromNetwork(dbSource)
+            } else {
+                fetchFromDb(dbSource)
+            }
+        })
+
+        result
+    }
+
+    private fun fetchFromDb(dbSource: LiveData<ResultType>) {
+        result.addSource(dbSource, { data ->
+            data?.let { result.value = Resource.success<ResultType>(it) }
+        })
+    }
 
     private fun fetchFromNetwork(dbSource: LiveData<ResultType>) {
         result.addSource(dbSource) { newData -> result.setValue(Resource.loading(newData)) }
@@ -29,8 +54,7 @@ abstract class NetworkBoundResource<ResultType, RequestType> {
                 result.removeSource(dbSource)
                 result.addSource(dbSource) { newData ->
                     result.setValue(
-                            Resource.error(t.message ?: "Error", newData)
-                    )
+                            Resource.error(t.message ?: "Error", newData))
                 }
             }
         })
@@ -39,19 +63,19 @@ abstract class NetworkBoundResource<ResultType, RequestType> {
     @SuppressLint("StaticFieldLeak")
     @MainThread private fun saveResultAndReInit(response: RequestType) =
             object : AsyncTask<Void, Void, Void>() {
-
                 override fun doInBackground(vararg voids: Void): Void? {
                     saveCallResult(response)
                     return null
                 }
 
-                override fun onPostExecute(aVoid: Void?) =
-                        result.addSource(loadFromDb()) { newData ->
-                            newData ?:
-                                    return@addSource result.setValue(Resource.error("Error", newData))
-                            result.setValue(Resource.success(newData))
-                        }
-
+                override fun onPostExecute(result: Void?) {
+                    val liveData = this@NetworkBoundResource.result
+                    liveData.addSource(loadFromDb(), { data ->
+                        data?.let {
+                            liveData.value = Resource.success(it)
+                        } ?: liveData.setValue(Resource.error("Error", data))
+                    })
+                }
             }.execute()
 
     @WorkerThread protected abstract fun saveCallResult(item: RequestType)
@@ -65,19 +89,4 @@ abstract class NetworkBoundResource<ResultType, RequestType> {
     @MainThread protected fun onFetchFailed() {
     }
 
-    val asLiveData: LiveData<Resource<ResultType>> by lazy {
-        result.value = Resource.loading<ResultType>(null)
-        val dbSource = loadFromDb()
-        result.addSource(dbSource) { data ->
-            result.removeSource(dbSource)
-            if (shouldFetch(data))
-                fetchFromNetwork(dbSource)
-            else
-                result.addSource(dbSource) { newData ->
-                    newData ?: return@addSource
-                    result.setValue(Resource.success(newData))
-                }
-        }
-        result
-    }
 }
