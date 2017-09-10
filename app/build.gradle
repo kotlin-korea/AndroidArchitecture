@@ -1,12 +1,15 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    compileSdkVersion 26
+    buildToolsVersion "25.0.3"
     defaultConfig {
         applicationId "iammert.com.androidarchitecture"
         minSdkVersion 21
-        targetSdkVersion 25
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -42,23 +45,28 @@ dependencies {
 
     compile rootProject.ext.archRuntime
     compile rootProject.ext.archExtension
-    annotationProcessor rootProject.ext.archCompiler
+    kapt rootProject.ext.archCompiler
 
     compile rootProject.ext.roomRuntime
-    annotationProcessor rootProject.ext.roomCompiler
+    kapt rootProject.ext.roomCompiler
 
     compile rootProject.ext.okhttp
     compile rootProject.ext.retrofit
     compile rootProject.ext.gsonConverter
 
     //dagger
-    annotationProcessor rootProject.ext.daggerCompiler
+    kapt rootProject.ext.daggerCompiler
     compile rootProject.ext.dagger
     compile rootProject.ext.daggerAndroid
     compile rootProject.ext.daggerAndroidSupport
-    annotationProcessor rootProject.ext.daggerAndroidProcessor
+    kapt rootProject.ext.daggerAndroidProcessor
 
     //ui
     compile rootProject.ext.picasso
 
+    kapt rootProject.ext.dataBindgingCompiler
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+}
+repositories {
+    mavenCentral()
 }
