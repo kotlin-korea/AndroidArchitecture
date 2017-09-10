@@ -29,7 +29,7 @@ abstract class NetworkBoundResource<ResultType, RequestType> {
                 result.removeSource(dbSource)
                 result.addSource(dbSource) { newData ->
                     result.setValue(
-                        Resource.error(t.message ?: "Error", newData)
+                            Resource.error(t.message ?: "Error", newData)
                     )
                 }
             }
@@ -38,21 +38,21 @@ abstract class NetworkBoundResource<ResultType, RequestType> {
 
     @SuppressLint("StaticFieldLeak")
     @MainThread private fun saveResultAndReInit(response: RequestType) =
-        object : AsyncTask<Void, Void, Void>() {
+            object : AsyncTask<Void, Void, Void>() {
 
-            override fun doInBackground(vararg voids: Void): Void? {
-                saveCallResult(response)
-                return null
-            }
-
-            override fun onPostExecute(aVoid: Void?) =
-                result.addSource(loadFromDb()) { newData ->
-                    newData ?:
-                        return@addSource result.setValue(Resource.error("Error", newData))
-                    result.setValue(Resource.success(newData))
+                override fun doInBackground(vararg voids: Void): Void? {
+                    saveCallResult(response)
+                    return null
                 }
 
-        }.execute()
+                override fun onPostExecute(aVoid: Void?) =
+                        result.addSource(loadFromDb()) { newData ->
+                            newData ?:
+                                    return@addSource result.setValue(Resource.error("Error", newData))
+                            result.setValue(Resource.success(newData))
+                        }
+
+            }.execute()
 
     @WorkerThread protected abstract fun saveCallResult(item: RequestType)
 

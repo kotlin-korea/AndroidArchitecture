@@ -27,7 +27,7 @@ class MovieListFragment : LifecycleFragment(), MovieListCallback {
         AndroidSupportInjection.inject(this)
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentMovieListBinding.inflate(inflater, container, false).apply {
             recyclerView.layoutManager = GridLayoutManager(activity, 2)
             recyclerView.adapter = MovieListAdapter(this@MovieListFragment)

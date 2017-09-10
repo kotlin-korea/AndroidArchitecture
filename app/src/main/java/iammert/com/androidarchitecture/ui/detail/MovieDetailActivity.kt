@@ -15,6 +15,10 @@ import iammert.com.androidarchitecture.R
 import iammert.com.androidarchitecture.databinding.ActivityMovieDetailBinding
 import javax.inject.Inject
 
+/**
+ * Created by mertsimsek on 19/05/2017.
+ */
+
 class MovieDetailActivity : AppCompatActivity(), LifecycleRegistryOwner {
 
     var lifecycleRegistry = LifecycleRegistry(this)
@@ -34,8 +38,7 @@ class MovieDetailActivity : AppCompatActivity(), LifecycleRegistryOwner {
 
         val movieId = intent.getIntExtra(KEY_MOVIE_ID, 0)
         movieDetailViewModel.getMovie(movieId)
-                .observe(this,
-                        Observer { movieEntity -> binding.movie = movieEntity })
+                .observe(this, Observer { movieEntity -> binding.movie = movieEntity })
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

@@ -15,6 +15,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
+/**
+ * Created by mertsimsek on 20/05/2017.
+ */
 @Module(includes = arrayOf(ViewModelModule::class))
 class AppModule {
 

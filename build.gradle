@@ -1,14 +1,17 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    ext.kotlin_version = '1.1.3-2'
+    ext.kotlin_version = '1.1.4'
+    ext.android_plugin_version = '3.0.0-beta5'
+
     repositories {
-        jcenter()
         maven { url 'https://maven.google.com' }
+        jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.0-alpha8'
+        classpath "com.android.tools.build:gradle:$android_plugin_version"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -18,6 +21,7 @@ allprojects {
     repositories {
         jcenter()
         maven { url 'https://maven.google.com' }
+        mavenCentral()
     }
 }
 
@@ -33,7 +37,6 @@ ext {
     okhttpVersion = '3.8.0'
     picassoVersion = '2.5.2'
     archVersion = '1.0.0-alpha5'
-    databindingVersion = '2.3.2'
 
     supportLibAppCompat = "com.android.support:appcompat-v7:$supportLibVersion"
     supportLibDesign = "com.android.support:design:$supportLibVersion"
@@ -51,5 +54,6 @@ ext {
     gsonConverter = "com.squareup.retrofit2:converter-gson:$gsonConverterVersion"
     okhttp = "com.squareup.okhttp3:okhttp:$okhttpVersion"
     picasso = "com.squareup.picasso:picasso:$picassoVersion"
-    dataBindgingCompiler = "com.android.databinding:compiler:$databindingVersion"
+    kotlinStdlib = "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    databindingAndroidProcessor = "com.android.databinding:compiler:$android_plugin_version"
 }
